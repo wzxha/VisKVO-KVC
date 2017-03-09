@@ -47,6 +47,14 @@ static void _vis_kvo_setter (id self, SEL _cmd, id newValue) {
         }
     }
     
+    void (*vis_objc_msgSendSuper)(void *, SEL, id) = (void *)objc_msgSendSuper;
+
+    vis_objc_msgSendSuper(&superclass, NSSelectorFromString(setterSELName), newValue);
+
+    if (!currentInfo) {
+        return;
+    }
+    
     NSMutableDictionary * change = [NSMutableDictionary dictionary];
     
     NSUInteger options = [currentInfo[@"options"] unsignedIntegerValue];
@@ -59,13 +67,9 @@ static void _vis_kvo_setter (id self, SEL _cmd, id newValue) {
         [change setObject:[self vis_valueForKey:key] forKey:@"old"];
     }
     
-    void (*vis_objc_msgSendSuper)(void *, SEL, id) = (void *)objc_msgSendSuper;
     
     void (*vis_objc_msgSend)(id, SEL, NSString *, id, NSDictionary *, void *) = (void *)objc_msgSend;
     
-    vis_objc_msgSendSuper(&superclass, @selector(willChangeValueForKey:), key);
-    
-    vis_objc_msgSendSuper(&superclass, NSSelectorFromString(setterSELName), newValue);
     
     vis_objc_msgSend(currentInfo[@"observer"],
                      @selector(observeValueForKeyPath:ofObject:change:context:),
@@ -73,8 +77,6 @@ static void _vis_kvo_setter (id self, SEL _cmd, id newValue) {
                      self,
                      [change copy],
                      nil);
-    
-    vis_objc_msgSendSuper(&superclass, @selector(didChangeValueForKey:), key);
 }
 
 - (void)vis_addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {

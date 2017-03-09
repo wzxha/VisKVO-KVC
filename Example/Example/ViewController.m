@@ -25,10 +25,14 @@
     foo.name = @"12";
     
     [foo vis_addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    [foo vis_addObserver:self forKeyPath:@"asd" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
    
-    [foo vis_setValue:@"123" forKey:@"name"];
+    foo.name = @"123";
+    [foo vis_setValue:@"1234" forKey:@"name"];
     
     [foo vis_removeObserver:self forKeyPath:@"name"];
+    
+    [foo vis_setValue:@"12345" forKey:@"name"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
