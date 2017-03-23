@@ -4,15 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Example.xcscheme</key>
+		<key>VisKVO_KVC.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>VisKVO_KVCTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1E02E8631E7138D100668EE2</key>
+		<key>1E805A6A1E8367F200D77BEB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1E805A821E83683B00D77BEB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
